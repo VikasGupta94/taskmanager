@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { genVar } from './config/genVar.js';
+import  serverConfig  from './config/server-config.js';
 import apiRoutes from './routes/index.js'
 import cors from 'cors';
 import morgan from 'morgan';
@@ -38,8 +38,8 @@ function startServer() {
             }
         }
     })
-    app.listen(genVar.SERVER_PORT, () => {
-        console.log(`server listening on port : ${genVar.SERVER_PORT}`)
+    app.listen(serverConfig.SERVER_PORT, () => {
+        console.log(`server listening on port : ${serverConfig.SERVER_PORT}`)
     })
 };
 startServer();

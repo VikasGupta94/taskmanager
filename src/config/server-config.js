@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-export const genVar = {
+export default  {
     SERVER_PORT: process.env.SERVER_PORT,
     MYSQL_HOST: process.env.MYSQL_HOST,
     MYSQL_PORT: process.env.MYSQL_PORT,
