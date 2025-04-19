@@ -5,6 +5,7 @@ import apiRoutes from './routes/index.js'
 import cors from 'cors';
 import morgan from 'morgan';
 import { logger } from './config/logger.js';
+import db from './models/index.js'
 const app = express();
 function startServer() {
     app.use(bodyParser.json());
