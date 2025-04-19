@@ -2,16 +2,19 @@ import fs from 'fs';
 import path from 'path';
 import { Sequelize, DataTypes } from 'sequelize';
 import { fileURLToPath, pathToFileURL } from 'url';
-import serverConfig from '../config/server-config.js';
-
+import dbConfig from '../config/db-config.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename); 
 
 const db = {};
-
+let sequelize;
 //  Use DATABASE_URL from config
-const sequelize = new Sequelize(serverConfig.DATABASE_URL);
+if (dbConfig.use_env_variable) {
+  sequelize = new Sequelize(dbConfig.use_env_variable, dbConfig);
+} else {
+  sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig);
+}
 
 //  Load all model files in the same directory
 const files = fs
