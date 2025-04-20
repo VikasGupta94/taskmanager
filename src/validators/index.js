@@ -1,3 +1,3 @@
-import userValidator from "./user-validator.js";
-export { userValidator };
+const userValidator = require('./user-validator');
+module.exports= { userValidator };
 

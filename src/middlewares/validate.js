@@ -1,4 +1,4 @@
-export const validateBody = (schema) => (req, res, next) => {
+const validateBody = (schema) => (req, res, next) => {
     if (!req.body) {
         throw new Error("Request body is missing");
       }
@@ -8,3 +8,4 @@ export const validateBody = (schema) => (req, res, next) => {
     }
     next()
 };
+module.exports={validateBody};

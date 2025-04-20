@@ -1,5 +1,5 @@
-import express from 'express';
-import authRoues from './auth-routes.js';
+const express = require('express');
+const authRoues= require('./auth-routes');
 const routes= express.Router();
 routes.use('/auth',authRoues);
-export default routes;
+module.exports = routes;

@@ -1,6 +1,6 @@
 
 
-export default class UserController {
+module.exports = class UserController {
     async register(req, res) {
         try {
             console.log("you are in user register");

@@ -1,5 +1,4 @@
-import Joi  from "joi";
-
+const Joi = require('joi');
 const register = Joi.object({
     username:Joi.string().alphanum().min(3).max(30).required(),
     email:Joi.string().email().required(),
@@ -10,7 +9,7 @@ const login= Joi.object({
     password:Joi.string().min(6).required()
 })
  
-export default {
+module.exports= {
     register,
     login
 };

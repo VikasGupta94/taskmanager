@@ -1,11 +1,10 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import  serverConfig  from './config/server-config.js';
-import apiRoutes from './routes/index.js'
-import cors from 'cors';
-import morgan from 'morgan';
-import { logger } from './config/logger.js';
-import db from './models/index.js'
+const express =require('express');
+const bodyParser =require('body-parser');
+const serverConfig= require('./config/server-config');
+const apiRoutes = require('./routes');
+const cors = require('cors');
+const morgan = require('morgan');
+const { logger }=  require('./config/logger.js');
 const app = express();
 function startServer() {
     app.use(bodyParser.json());

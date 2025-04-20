@@ -1,5 +1,4 @@
-import serverConfig from './server-config.js';
-
+const serverConfig = require('./server-config.js');
 const dbObj = {
     development: {
         username: serverConfig.DB_USER || 'root',
@@ -21,4 +20,4 @@ const dbObj = {
         dialect: 'mysql',
     }
 };
-export default dbObj[serverConfig.NODE_ENV];
+module.exports = dbObj[serverConfig.NODE_ENV];

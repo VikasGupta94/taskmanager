@@ -1,6 +1,6 @@
-import winston from "winston";
-import DailyRotateFile from "winston-daily-rotate-file";
-export const logger = winston.createLogger({
+const winston = require('winston');
+const DailyRotateFile= require('winston-daily-rotate-file');
+ const logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
         winston.format.timestamp(),
@@ -17,4 +17,5 @@ export const logger = winston.createLogger({
             maxFiles: '30d', // Keep logs for 30days
         }),
     ]
-})
+});
+module.exports=logger;
