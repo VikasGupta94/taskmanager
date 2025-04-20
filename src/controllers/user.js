@@ -20,9 +20,9 @@ module.exports = class UserController {
             throw error
         }
     }
-    async userDetails(req, res) {
+    async user(req, res) {
         try {
-            const result = await this.userService.userDetails(req.body);
+            const result = await this.userService.userDetails(req.user);
             res.status(200).json(result)
         } catch (error) {
             throw error

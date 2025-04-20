@@ -10,5 +10,5 @@ const userController = new UserController(userService);
 const routes = express.Router();
 routes.post('/register', validateBody(userValidator.register), userController.register.bind(userController))
 routes.post('/login', validateBody(userValidator.login), userController.login.bind(userController))
-routes.get('/me', authenticate, userController.register.bind(userController))
+routes.get('/me', authenticate, userController.user.bind(userController))
 module.exports = routes;

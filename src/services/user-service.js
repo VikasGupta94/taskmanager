@@ -35,6 +35,17 @@ module.exports = class UserService {
             throw error
         }
     }
+    async userDetails(data) {
+        try {
+            const userData = await this.userRepository.getUserByEmail(data.email);
+            if (!userData) {
+                throw Error("invalid email");
+            }
+            return {email:userData.email,id:userData.id}
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 
