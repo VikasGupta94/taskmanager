@@ -9,7 +9,7 @@ module.exports = class UserService {
         try {
             const hashed_passowrd = await hash(data.password);
             const temp_data = {
-                username: data.name,
+                username: data.username,
                 email: data.email,
                 password: hashed_passowrd
             }
@@ -41,7 +41,7 @@ module.exports = class UserService {
             if (!userData) {
                 throw Error("invalid email");
             }
-            return {email:userData.email,id:userData.id}
+            return {username:userData.username,email:userData.email,id:userData.id}
         } catch (error) {
             throw error
         }

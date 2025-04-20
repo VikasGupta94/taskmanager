@@ -1,2 +1,3 @@
 const UserService = require('./user-service.js');
-module.exports={UserService}
+const TaskService = require('./task-service.js');
+module.exports={UserService,TaskService}

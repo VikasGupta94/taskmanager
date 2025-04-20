@@ -1,2 +1,3 @@
 const UserRepository= require('./user-repository');
-module.exports={UserRepository}
+const TaskRepository= require('./task-repository');
+module.exports={UserRepository,TaskRepository}

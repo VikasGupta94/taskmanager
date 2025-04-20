@@ -17,12 +17,17 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: {
-      type:DataTypes.ENUM('Todo', 'In-progress', 'Done'),
-      defaultValue:'Todo',
-      allowNull:false
+      type: DataTypes.ENUM('Todo', 'In-progress', 'Done'),
+      defaultValue: 'Todo',
+      allowNull: false
     },
     dueDate: DataTypes.DATE,
-    createdBy: DataTypes.INTEGER
+    createdBy: DataTypes.INTEGER,
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    }
   }, {
     sequelize,
     modelName: 'task',
