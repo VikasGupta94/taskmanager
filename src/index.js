@@ -4,7 +4,7 @@ const serverConfig= require('./config/server-config');
 const apiRoutes = require('./routes');
 const cors = require('cors');
 const morgan = require('morgan');
-const { logger }=  require('./config/logger.js');
+const  logger=  require('./config/logger.js');
 const app = express();
 function startServer() {
     app.use(bodyParser.json());
