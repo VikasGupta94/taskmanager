@@ -1,5 +1,5 @@
-const { hash } = require("../utils/hashing");
-
+const { hash, verfiyHash } = require("../utils/hashing");
+const { generateToken } = require('../utils/jwt');
 
 module.exports = class UserService {
     constructor(userRepository) {
@@ -15,6 +15,22 @@ module.exports = class UserService {
             }
             const result = await this.userRepository.create(temp_data);
             return result;
+        } catch (error) {
+            throw error
+        }
+    }
+    async loginUser(data) {
+        try {
+            const userData = await this.userRepository.getUserByEmail(data.email);
+            if (!userData) {
+                throw Error("invalid email");
+            }
+            const verifyResult = await verfiyHash(userData.password, data.password);
+            if (!verifyResult) {
+                throw Error("invalid password");
+            }
+            const token = generateToken({ email: userData.email, id: userData.id });
+            return token;
         } catch (error) {
             throw error
         }

@@ -6,12 +6,25 @@ module.exports = class UserController {
     }
     async register(req, res) {
         try {
-            console.log()
-            const result = await this.userService.registerUser(req.body);
-            console.log(result, "controller 10 line");
+             await this.userService.registerUser(req.body);
+            res.status(200).json({is_error:0,message:"You have registered successfully!"})
+        } catch (error) {
+            throw error
+        }
+    }
+    async login(req, res) {
+        try {
+            const result = await this.userService.loginUser(req.body);
             res.status(200).json(result)
         } catch (error) {
-            console.log(error, "line 13");
+            throw error
+        }
+    }
+    async userDetails(req, res) {
+        try {
+            const result = await this.userService.userDetails(req.body);
+            res.status(200).json(result)
+        } catch (error) {
             throw error
         }
 
