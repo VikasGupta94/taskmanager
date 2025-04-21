@@ -30,13 +30,14 @@ module.exports = class TaskRepository extends CrudRepository{
         return tempTask;
       }
 
-      async  updateTaskById(id, updateData) {
-        const [updatedCount] = await task.update(updateData, {
-          where: {
-            id,
-            isDeleted: false 
-          }
+      async updateTaskById({ id, createdBy, updateData }) {
+        const temp_task = await task.findOne({
+          where: { id, createdBy ,isDeleted:false}
         });
-        return updatedCount > 0; 
+        if (!temp_task) {
+          return null; // No task found
+        }
+        const updatedTask = await temp_task.update(updateData);
+        return updatedTask; // Returns the updated task
       }
 }

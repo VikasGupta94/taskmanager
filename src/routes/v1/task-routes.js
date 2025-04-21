@@ -10,4 +10,5 @@ const taskService= new TaskService(taskRepository);
 const taskController=new TaskController(taskService);
 routes.post('/',authenticate,validateBody(taskValidator.taskInfo),taskController.createTask.bind(taskController));
 routes.get('/',authenticate,validateBody(taskValidator.getFilters),taskController.getTask.bind(taskController));
+routes.put('/:id',authenticate,validateBody(taskValidator.updateTask),taskController.updateTask.bind(taskController));
 module.exports=routes;

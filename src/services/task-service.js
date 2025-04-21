@@ -3,13 +3,13 @@ module.exports = class TaskService {
     constructor(taskRepository) {
         this.taskRepository = taskRepository;
     }
-    async createTask(data,user) {
+    async createTask(data, user) {
         try {
             const temp_data = {
                 title: data.title,
                 description: data.description,
                 status: data.status,
-                createdBy:user.id
+                createdBy: user.id
             }
             const result = await this.taskRepository.create(temp_data);
             return result;
@@ -17,14 +17,14 @@ module.exports = class TaskService {
             throw error
         }
     }
-    async getTask(data,user) {
+    async getTask(data, user) {
         try {
-            let   offset = (data.page - 1) * data.limit ;
-            const tempData={
-                createdBy:user.id,
-                status:data.status=='All'?null:data.status,
-                limit:data.limit,
-                offset:offset
+            let offset = (data.page - 1) * data.limit;
+            const tempData = {
+                createdBy: user.id,
+                status: data.status == 'All' ? null : data.status,
+                limit: data.limit,
+                offset: offset
             }
             const userData = await this.taskRepository.getAllTask(tempData);
             return userData
@@ -32,13 +32,13 @@ module.exports = class TaskService {
             throw error
         }
     }
-    async updateTask(data) {
+    async updateTask(id, data, user) {
         try {
-            const userData = await this.taskRepository.getUserByEmail(data.email);
+            const userData = await this.taskRepository.updateTaskById({ id, createdBy: user.id, updateData: data });
             if (!userData) {
-                throw Error("invalid email");
+                throw Error("NO record to update");
             }
-            return {email:userData.email,id:userData.id}
+            return userData
         } catch (error) {
             throw error
         }
@@ -49,7 +49,7 @@ module.exports = class TaskService {
             if (!userData) {
                 throw Error("invalid email");
             }
-            return {email:userData.email,id:userData.id}
+            return { email: userData.email, id: userData.id }
         } catch (error) {
             throw error
         }
