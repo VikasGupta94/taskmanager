@@ -17,18 +17,17 @@ module.exports = class TaskService {
             throw error
         }
     }
-    async getTask(data) {
+    async getTask(data,user) {
         try {
-            const userData = await this.taskRepository.getUserByEmail(data.email);
-            if (!userData) {
-                throw Error("invalid email");
+            let   offset = (data.page - 1) * data.limit ;
+            const tempData={
+                createdBy:user.id,
+                status:data.status=='All'?null:data.status,
+                limit:data.limit,
+                offset:offset
             }
-            const verifyResult = await verfiyHash(userData.password, data.password);
-            if (!verifyResult) {
-                throw Error("invalid password");
-            }
-            const token = generateToken({ email: userData.email, id: userData.id });
-            return token;
+            const userData = await this.taskRepository.getAllTask(tempData);
+            return userData
         } catch (error) {
             throw error
         }

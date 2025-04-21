@@ -4,7 +4,12 @@ const taskInfo = Joi.object({
     description:Joi.string().max(250).required(),
     status: Joi.string().valid('Todo', 'In_progress', 'Done').required()
 })
- 
+const getFilters = Joi.object({
+    status: Joi.string().valid('Todo', 'In_progress', 'Done', 'All').required(),
+    page:Joi.number().required(),
+    limit:Joi.number().required()
+})
 module.exports= {
-    taskInfo
+    taskInfo,
+    getFilters
 };

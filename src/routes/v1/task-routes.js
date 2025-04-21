@@ -8,5 +8,6 @@ const routes=express.Router();
 const taskRepository=new TaskRepository();
 const taskService= new TaskService(taskRepository);
 const taskController=new TaskController(taskService);
-routes.post('/',authenticate,validateBody(taskValidator.taskInfo),taskController.createTask.bind(taskController))
+routes.post('/',authenticate,validateBody(taskValidator.taskInfo),taskController.createTask.bind(taskController));
+routes.get('/',authenticate,validateBody(taskValidator.getFilters),taskController.getTask.bind(taskController));
 module.exports=routes;
