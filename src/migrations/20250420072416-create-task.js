@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       status: {
-        type: Sequelize.ENUM('Todo', 'In-progress', 'Done'),
+        type: Sequelize.ENUM('Todo', 'In_progress', 'Done'),
         defaultValue: 'Todo'
       },
       dueDate: {
