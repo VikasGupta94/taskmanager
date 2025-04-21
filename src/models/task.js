@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Todo',
       allowNull: false
     },
-    dueDate: DataTypes.DATE,
+    dueDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
     createdBy: DataTypes.INTEGER,
     isDeleted: {
       type: DataTypes.BOOLEAN,
