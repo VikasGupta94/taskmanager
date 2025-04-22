@@ -1,3 +1,6 @@
+const { StatusCodes } = require("http-status-codes");
+const { successResponse } = require("../utils/response");
+
 module.exports = class TaskController {
     constructor(taskService) {
         this.taskService = taskService;
@@ -6,7 +9,7 @@ module.exports = class TaskController {
     async createTask(req, res) {
         try {
             const result = await this.taskService.createTask(req.body,req.user);
-            res.status(200).json(result)
+            successResponse(res,'task created',{},StatusCodes.CREATED);
         } catch (error) {
             throw error
         }

@@ -4,7 +4,7 @@ const serverConfig = require('../config/server-config.js');
 const isDev = serverConfig.NODE_ENV === 'development';
 
 const errorHandler = (err, req, res, next) => {
-    console.error(`ERROR: ${err.message || err}`);
+    console.error(`ERROR : ${err}`);
 
     let statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
     let message = err.message || getReasonPhrase(statusCode);
