@@ -43,13 +43,13 @@ module.exports = class TaskService {
             throw error
         }
     }
-    async deleteTask(data) {
+    async deleteTask(id,user) {
         try {
-            const userData = await this.taskRepository.getUserByEmail(data.email);
-            if (!userData) {
-                throw Error("invalid email");
+            const deleteResult = await this.taskRepository.softDeleteTaskById({id, createdBy: user.id});
+            if (!deleteResult) {
+                throw Error("Not found or already deleted or not created by this user");
             }
-            return { email: userData.email, id: userData.id }
+            return deleteResult;
         } catch (error) {
             throw error
         }

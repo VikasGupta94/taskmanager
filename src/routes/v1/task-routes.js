@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticate, validateBody } = require('../../middlewares');
+const { authenticate, validateBody,validateParams } = require('../../middlewares');
 const { taskValidator } = require('../../validators');
 const { TaskController } = require('../../controllers');
 const { TaskService } = require('../../services');
@@ -10,5 +10,6 @@ const taskService= new TaskService(taskRepository);
 const taskController=new TaskController(taskService);
 routes.post('/',authenticate,validateBody(taskValidator.taskInfo),taskController.createTask.bind(taskController));
 routes.get('/',authenticate,validateBody(taskValidator.getFilters),taskController.getTask.bind(taskController));
-routes.put('/:id',authenticate,validateBody(taskValidator.updateTask),taskController.updateTask.bind(taskController));
+routes.put('/:id',authenticate,validateParams(taskValidator.taskId),validateBody(taskValidator.updateTask),taskController.updateTask.bind(taskController));
+routes.delete('/:id',authenticate,validateParams(taskValidator.taskId),taskController.deleteTask.bind(taskController));
 module.exports=routes;

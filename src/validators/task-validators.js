@@ -14,8 +14,12 @@ const updateTask = Joi.object({
     description:Joi.string().max(250).optional(),
     status: Joi.string().valid('Todo', 'In_progress', 'Done').optional()
 })
+const taskId = Joi.object({
+    id:Joi.number().required()
+})
 module.exports= {
     taskInfo,
     getFilters,
-    updateTask
+    updateTask,
+    taskId
 };
