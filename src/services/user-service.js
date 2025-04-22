@@ -30,7 +30,7 @@ module.exports = class UserService {
                 throw Error("invalid password");
             }
             const token = generateToken({ email: userData.email, id: userData.id });
-            return token;
+            return {token};
         } catch (error) {
             throw error
         }

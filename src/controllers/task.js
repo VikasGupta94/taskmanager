@@ -7,37 +7,21 @@ module.exports = class TaskController {
     }
 
     async createTask(req, res) {
-        try {
-            const result = await this.taskService.createTask(req.body,req.user);
-            successResponse(res,'task created',{},StatusCodes.CREATED);
-        } catch (error) {
-            throw error
-        }
+        await this.taskService.createTask(req.body, req.user);
+        successResponse(res, 'task created.', {}, StatusCodes.CREATED);
     }
     async getTask(req, res) {
-        try {
-            const result = await this.taskService.getTask(req.body,req.user);
-            res.status(200).json(result)
-        } catch (error) {
-            throw error
-        }
+        const result = await this.taskService.getTask(req.body, req.user);
+        successResponse(res, '', result, StatusCodes.OK);
     }
     async updateTask(req, res) {
-        try {
-            const { id } = req.params;
-            const result = await this.taskService.updateTask(id, req.body,req.user);
-            res.status(200).json(result);
-        } catch (error) {
-            throw error
-        }
+        const { id } = req.params;
+        await this.taskService.updateTask(id, req.body, req.user);
+        successResponse(res, 'Task updated.', '', StatusCodes.OK);
     }
     async deleteTask(req, res) {
-        try {
-            const { id } = req.params;
-            const result = await this.taskService.deleteTask(id,req.user);
-            res.status(200).json(result);
-        } catch (error) {
-            throw error
-        }
+        const { id } = req.params;
+        await this.taskService.deleteTask(id, req.user);
+        successResponse(res, 'Task deleted successfully.', '', StatusCodes.OK);
     }
 } 

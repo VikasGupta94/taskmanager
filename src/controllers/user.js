@@ -1,29 +1,22 @@
 
-
+const { StatusCodes } = require("http-status-codes");
+const { successResponse } = require("../utils/response");
 module.exports = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
     async register(req, res) {
-        try {
              await this.userService.registerUser(req.body);
-            res.status(200).json({is_error:0,message:"You have registered successfully!"})
-        } catch (error) {
-            throw error
-        }
+            successResponse(res,'You have registered successfully!','',StatusCodes.CREATED);
     }
     async login(req, res) {
-        try {
             const result = await this.userService.loginUser(req.body);
-            res.status(200).json(result)
-        } catch (error) {
-            throw error
-        }
+            successResponse(res,'You have logged successfully!',result,StatusCodes.OK);
     }
     async user(req, res) {
         try {
             const result = await this.userService.userDetails(req.user);
-            res.status(200).json(result)
+            successResponse(res,'You have logged successfully!',result,StatusCodes.OK);
         } catch (error) {
             throw error
         }

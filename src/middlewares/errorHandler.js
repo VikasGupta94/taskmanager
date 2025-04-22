@@ -14,6 +14,10 @@ const errorHandler = (err, req, res, next) => {
         statusCode = StatusCodes.BAD_REQUEST;
         message = err.message;
     }
+    if (err.name === 'SequelizeUniqueConstraintError') {
+          statusCode=StatusCodes.CONFLICT
+          message= err.errors[0]?.message || 'Unique constraint error'
+      }
 
     // Customize the error payload
     const errorPayload = isDev
