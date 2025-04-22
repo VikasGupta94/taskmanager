@@ -1,10 +1,13 @@
-const express =require('express');
-const bodyParser =require('body-parser');
-const serverConfig= require('./config/server-config');
+const express = require('express');
+const bodyParser = require('body-parser');
+const serverConfig = require('./config/server-config');
 const apiRoutes = require('./routes');
 const cors = require('cors');
 const morgan = require('morgan');
-const  logger=  require('./config/logger.js');
+const logger = require('./config/logger.js');
+const { errorHandler } = require('./middlewares');
+const { StatusCodes } = require('http-status-codes');
+const AppError = require('./utils/appError.js');
 const app = express();
 function startServer() {
     app.use(bodyParser.json());
@@ -20,24 +23,11 @@ function startServer() {
     app.use(morgan('incoming  :user-agent :method :remote-addr :url ', { stream: { write: (message) => logger.info(message.trim()) }, immediate: true }))
     app.use(morgan('outgoing  :user-agent :method :remote-addr :url :status :res[content-length] - :response-time ms', { stream: { write: (message) => logger.info(message.trim()) } }));
     app.use('/api', apiRoutes)
-    app.use((err, req, res, next) => {
-        if (err) {
-            if (err.name == 'ValidationError') {
-                res.status(400).json({
-                    is_error: true,
-                    error_message: err.message,
-                    data: {}
-                })
-            }
-            else {
-                res.status(500).json({
-                    is_error: true,
-                    error_message: err.message,
-                    data: {}
-                })
-            }
-        }
-    })
+    app.use((req, res, next) => {
+        throw new AppError("Route not found", StatusCodes.NOT_FOUND)
+    });
+    app.use(errorHandler);
+
     app.listen(serverConfig.SERVER_PORT, () => {
         console.log(`server listening on port : ${serverConfig.SERVER_PORT}`)
     })

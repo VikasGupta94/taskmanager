@@ -25,7 +25,7 @@ module.exports = class TaskController {
             const result = await this.taskService.updateTask(id, req.body,req.user);
             res.status(200).json(result);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            throw error
         }
     }
     async deleteTask(req, res) {
@@ -34,7 +34,7 @@ module.exports = class TaskController {
             const result = await this.taskService.deleteTask(id,req.user);
             res.status(200).json(result);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            throw error
         }
     }
 } 
